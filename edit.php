@@ -1,9 +1,5 @@
 <?php
-    $pdo = new PDO('pgsql:host=ec2-52-22-216-69.compute-1.amazonaws.com;dbname=dc9864jjr8m47c', 'lxtaqhdibeqfmp', '2f3011ee07231a425d3a0fe5e1e646727d7b2bab6ad2248052be0c592caa9441');
-?>
-<?php
-
- 
+    
 include("auth.php");
 $id=$_REQUEST['id'];
 $query = "SELECT * from customer where customerid='".$id."'"; 
