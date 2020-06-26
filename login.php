@@ -1,9 +1,4 @@
-<?php
-/*
-Author: Javed Ur Rehman
-Website: https://www.allphptricks.com/
-*/
-?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,25 +10,23 @@ Website: https://www.allphptricks.com/
 <?php
 	require('db.php');
 	session_start();
-    // If form submitted, insert values into the database.
-    if (isset($_POST['username'])){
-		
-		$username = stripslashes($_REQUEST['username']); // removes backslashes
-		$username = mysqli_real_escape_string($con,$username); //escapes special characters in a string
-		$password = stripslashes($_REQUEST['password']);
-		$password = mysqli_real_escape_string($con,$password);
-		
-	//Checking is user existing in the database or not
-        $query = "SELECT * FROM `users` WHERE username='$username' and password='".md5($password)."'";
-		$result = mysqli_query($con,$query) or die(mysqli_error());
-		$rows = mysqli_num_rows($result);
-        if($rows==1){
-			$_SESSION['username'] = $username;
+	if ($_POST['username']='os1ris')
+	{
+		if ($_POST['password']='11235813')
+		{
+			$_SESSION['username'] = $_POST['username'];
 			header("Location: index.php"); // Redirect user to index.php
-            }else{
-				echo "<div class='form'><h3>Username/password is incorrect.</h3><br/>Click here to <a href='login.php'>Login</a></div>";
-				}
-    }else{
+		}
+		else
+		{
+			echo "<div class='form'><h3>Password is incorrect.</h3><br/>Click here to <a href='login.php'>Login</a></div>";
+		}
+	}
+	else
+	{
+		echo "<div class='form'><h3>Username is incorrect.</h3><br/>Click here to <a href='login.php'>Login</a></div>";
+	}
+    // If form submitted, insert values into the database.
 ?>
 <div class="form">
 <h1>Log In</h1>
@@ -45,10 +38,8 @@ Website: https://www.allphptricks.com/
 <p>Not registered yet? <a href='registration.php'>Register Here</a></p>
 
 <br /><br />
-<a href="https://www.allphptricks.com/insert-view-edit-and-delete-record-from-database-using-php-and-mysqli/">Tutorial Link</a> <br /><br />
-For More Web Development Tutorials Visit: <a href="https://www.allphptricks.com/">AllPHPTricks.com</a>
+
 </div>
-<?php } ?>
 
 
 </body>
