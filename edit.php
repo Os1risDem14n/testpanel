@@ -1,15 +1,14 @@
 <?php
-/*
-Author: Javed Ur Rehman
-Website: https://www.allphptricks.com/
-*/
+    $pdo = new PDO('pgsql:host=ec2-52-22-216-69.compute-1.amazonaws.com;dbname=dc9864jjr8m47c', 'lxtaqhdibeqfmp', '2f3011ee07231a425d3a0fe5e1e646727d7b2bab6ad2248052be0c592caa9441');
+?>
+<?php
+
  
-require('db.php');
 include("auth.php");
 $id=$_REQUEST['id'];
-$query = "SELECT * from new_record where id='".$id."'"; 
-$result = mysqli_query($con, $query) or die ( mysqli_error());
-$row = mysqli_fetch_assoc($result);
+$query = "SELECT * from customer where customerid='".$id."'"; 
+$result = pg_query($query) or die ( pg_last_error());
+$row = pg_fetch_assoc($result);
 ?>
 <!DOCTYPE html>
 <html>
@@ -20,19 +19,18 @@ $row = mysqli_fetch_assoc($result);
 </head>
 <body>
 <div class="form">
-<p><a href="dashboard.php">Dashboard</a> | <a href="insert.php">Insert New Record</a> | <a href="logout.php">Logout</a></p>
-<h1>Update Record</h1>
+<p><a href="dashboard.php">Dashboard</a> | <a href="insert.php">Insert New Customer</a> | <a href="logout.php">Logout</a></p>
+<h1>Update Customer Info</h1>
 <?php
 $status = "";
 if(isset($_POST['new']) && $_POST['new']==1)
 {
 $id=$_REQUEST['id'];
-$trn_date = date("Y-m-d H:i:s");
 $name =$_REQUEST['name'];
-$age =$_REQUEST['age'];
-$submittedby = $_SESSION["username"];
-$update="update new_record set trn_date='".$trn_date."', name='".$name."', age='".$age."', submittedby='".$submittedby."' where id='".$id."'";
-mysqli_query($con, $update) or die(mysqli_error());
+$phone =$_REQUEST['phone'];
+$address =$_REQUEST['address'];
+$update="update customer set customername='".$name."', customerphone='".$phone."', customeraddress='".$address."' where customerid='".$id."'";
+pg_query($query) or die ( pg_last_error());
 $status = "Record Updated Successfully. </br></br><a href='view.php'>View Updated Record</a>";
 echo '<p style="color:#FF0000;">'.$status.'</p>';
 }else {
@@ -41,15 +39,14 @@ echo '<p style="color:#FF0000;">'.$status.'</p>';
 <form name="form" method="post" action=""> 
 <input type="hidden" name="new" value="1" />
 <input name="id" type="hidden" value="<?php echo $row['id'];?>" />
-<p><input type="text" name="name" placeholder="Enter Name" required value="<?php echo $row['name'];?>" /></p>
-<p><input type="text" name="age" placeholder="Enter Age" required value="<?php echo $row['age'];?>" /></p>
+<p><input type="text" name="name" placeholder="Enter Name" required value="<?php echo $row['customername'];?>" /></p>
+<p><input type="text" name="phone" placeholder="Enter Phone" required value="<?php echo $row['customerphone'];?>" /></p>
+<p><input type="text" name="address" placeholder="Enter Address" required value="<?php echo $row['customeraddress'];?>" /></p>
 <p><input name="submit" type="submit" value="Update" /></p>
 </form>
 <?php } ?>
 
 <br /><br /><br /><br />
-<a href="https://www.allphptricks.com/insert-view-edit-and-delete-record-from-database-using-php-and-mysqli/">Tutorial Link</a> <br /><br />
-For More Web Development Tutorials Visit: <a href="https://www.allphptricks.com/">AllPHPTricks.com</a>
 </div>
 </div>
 </body>
